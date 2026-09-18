@@ -30,3 +30,10 @@ catalog = []
 catalog.append(vinylItem)
 print("\n¡Vinilo guardado con éxito en el catálogo!")
 print(catalog)
+
+# Parte 4: Crear un set con las categorías únicas del catálogo
+catalogCategories = {vinylCategory}
+
+print("\n--- Información de Categorías ---")
+print(f"Categorías únicas en el catálogo: {catalogCategories}")
+print(f"Cantidad de categorías diferentes: {len(catalogCategories)}")
