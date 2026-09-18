@@ -37,3 +37,35 @@ catalogCategories = {vinylCategory}
 print("\n--- Información de Categorías ---")
 print(f"Categorías únicas en el catálogo: {catalogCategories}")
 print(f"Cantidad de categorías diferentes: {len(catalogCategories)}")
+
+
+# Lista vacía donde iremos acumulando los 10 vinilos
+catalog = []
+
+# Bucle para repetir el proceso 10 veces (del 0 al 9)
+
+for i in range(10):
+    print(f"\n--- Registro de Vinilo {i + 1} de 10 ---")
+
+    vinylId = input("Introduce el identificador del vinilo (ej. V01): ")
+    vinylName = input("Introduce el nombre del álbum/artista: ")
+    vinylCategory = input("Introduce la categoría (ej. Rock, Pop): ")
+    vinylPrice = float(input("Introduce el precio (ej. 45.0): "))
+    vinylStatus = input("Introduce el estado (disponible / reservada / vendida): ")
+    vinylDescription = input("Introduce la descripción (debe incluir 'usada' o 'certificada'): ")
+
+    # Creamos el objeto (diccionario) para este vinilo
+
+    vinylItem = {
+        "id": vinylId,
+        "name": vinylName,
+        "category": vinylCategory,
+        "price": vinylPrice,
+        "status": vinylStatus,
+        "description": vinylDescription
+    }
+
+    # Añadimos el vinilo a nuestra lista del catálogo
+
+    catalog.append(vinylItem)
+    print("¡Vinilo guardado con éxito en el catálogo!")
