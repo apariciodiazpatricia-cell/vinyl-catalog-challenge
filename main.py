@@ -69,3 +69,24 @@ for i in range(10):
 
     catalog.append(vinylItem)
     print("¡Vinilo guardado con éxito en el catálogo!")
+
+
+    # Mostramos el catálogo completo al terminar el bucle
+
+print("\n==================================================")
+print("       CATÁLOGO COMPLETO DE VINILOS COLECCIONABLES")
+print("==================================================")
+
+for vinyl in catalog:
+    print(
+        f"ID: {vinyl['id']} | Álbum: {vinyl['name']} | Categoría: {vinyl['category']} | Precio: {vinyl['price']}€ | Estado: {vinyl['status']}")
+
+
+
+catalogCategories = {vinyl['category'] for vinyl in catalog}
+
+print("\n--- Resumen de Categorías ---")
+
+print(f"Categorías únicas en el catálogo: {catalogCategories}")
+print(f"Cantidad de categorías diferentes: {len(catalogCategories)}")
+print(f"Cantidad total de piezas en el catálogo: {len(catalog)}")
