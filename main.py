@@ -51,7 +51,12 @@ for i in range(10):
     vinylId = input("Introduce el identificador del vinilo (ej. V01): ")
     vinylName = input("Introduce el nombre del álbum/artista: ")
     vinylCategory = input("Introduce la categoría (ej. Rock, Pop): ")
-    vinylPrice = float(input("Introduce el precio (ej. 45.0): "))
+    vinylPrice = None
+    while vinylPrice is None:
+        try:
+            vinylPrice = float(input("Introduce el precio (ej. 45.0): "))
+        except ValueError:
+            print("Error: Debes introducir un valor numérico válido para el precio.")
     vinylStatus = input("Introduce el estado (disponible/reservada/vendida): ")
     vinylDescription = input("Introduce la descripción (debe incluir 'usada' o 'certificada'): ")
 
@@ -133,3 +138,27 @@ if vendidas:
 
 if not vendidas:
     print("No hay piezas vendidas en este momento.")
+
+
+    # --- Parte 7: Filtrar piezas por precio mínimo con validación numérica ---
+print("\n=== FILTRADO DE VINILOS POR PRECIO MÍNIMO ===")
+
+# Validamos que el valor introducido sea numérico sin usar 'else'
+min_price = None
+while min_price is None:
+    try:
+        min_price = float(input("Introduce el precio mínimo deseado (€): "))
+    except ValueError:
+        print("Error: Debes introducir un valor numérico válido (ej. 15.50).")
+
+# Filtramos los vinilos cuyo precio sea estrictamente superior al introducido
+vinilos_filtrados = [vinyl for vinyl in catalog if vinyl["price"] > min_price]
+
+if vinilos_filtrados:
+    print(f"\nVinilos con un precio superior a {min_price}€:")
+    for vinyl in vinilos_filtrados:
+        print(
+            f"ID: {vinyl['id']} | Álbum: {vinyl['name']} | Categoría: {vinyl['category']} | Precio: {vinyl['price']}€ | Estado: {vinyl['status']}")
+
+if not vinilos_filtrados:
+    print(f"No se encontraron piezas con un precio superior a {min_price}€.")
