@@ -77,7 +77,7 @@ for i in range(10):
     print("¡Vinilo guardado con éxito en el catálogo!")
 
 
-    # Mostramos el catálogo completo al terminar el bucle
+
 
 print("\n==================================================")
 print("       CATÁLOGO COMPLETO DE VINILOS COLECCIONABLES")
@@ -98,7 +98,7 @@ print(f"Cantidad de categorías diferentes: {len(catalogCategories)}")
 print(f"Cantidad total de piezas en el catálogo: {len(catalog)}")
 
 
-# --- PARTE 6: FILTRAR PIEZAS POR ESTADO (Sin usar else) ---
+
 
 print("\n==================================================")
 print("             FILTRADO POR ESTADOS                 ")
@@ -164,7 +164,7 @@ if not vinilos_filtrados:
     print(f"No se encontraron piezas con un precio superior a {min_price}€.")
 
 
-    # --- Parte 8: Aplicar operadores lógicos ---
+
 print("\n=============================================")
 print("          PARTE 8: OPERADORES LÓGICOS        ")
 print("=============================================")
@@ -184,3 +184,39 @@ for vinyl in catalog:
     print(f"  -> ¿Requiere revisión?: {requiere_revision}")
     print(f"  -> ¿No está vendida?: {no_vendida}")
     print("-" * 45)
+
+    # --- Parte 9: Manipulación de strings ---
+    print("\n=============================================")
+    print("         PARTE 9: MANIPULACIÓN DE STRINGS    ")
+    print("=============================================")
+
+    # Evaluamos de forma segura si el catálogo tiene elementos sin usar 'else'
+    if catalog:
+        # 1. Mostrar la información de una pieza utilizando concatenación (+)
+        print("1. Concatenación:", "Álbum: " + catalog[0]["name"] + " | Categoría: " + catalog[0]["category"])
+
+        # 2. Mostrar la información de una pieza utilizando interpolación (f-strings)
+        print(
+            f"2. Interpolación: Álbum: {catalog[0]['name']} | Precio: {catalog[0]['price']}€ | Estado: {catalog[0]['status']}")
+
+        # 5. Reemplazar la palabra 'usada' por 'certificada' en una descripción
+        descripcion_original = catalog[0]["description"]
+        descripcion_modificada = descripcion_original.replace("usada", "certificada")
+        print(f"5. Descripción modificada: {descripcion_modificada}")
+
+        # 8. Normalizar el nombre de una pieza antes de mostrarlo (quitando espacios y aplicando formato título)
+        nombre_normalizado = catalog[0]["name"].strip().title()
+        print(f"8. Nombre de pieza normalizado: {nombre_normalizado}")
+
+    # 3 y 4. Solicitar cadena de etiquetas separadas por comas y convertirlas en lista
+    tags_input = input("Introduce etiquetas separadas por comas (ej. retro,anime,limited): ")
+    lista_tags = [tag.strip() for tag in tags_input.split(",")]
+    print(f"4. Elementos separados (lista de etiquetas): {lista_tags}")
+
+    # 6 y 7. Solicitar un nombre de usuario y mostrarlo con distintos formatos de string
+    username = input("Introduce un nombre de usuario para formatear: ")
+    print(f"  - Sin espacios (strip): '{username.strip()}'")
+    print(f"  - En minúsculas (lower): {username.lower()}")
+    print(f"  - En mayúsculas (upper): {username.upper()}")
+    print(f"  - En formato título (title): {username.title()}")
+
