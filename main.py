@@ -162,3 +162,25 @@ if vinilos_filtrados:
 
 if not vinilos_filtrados:
     print(f"No se encontraron piezas con un precio superior a {min_price}€.")
+
+
+    # --- Parte 8: Aplicar operadores lógicos ---
+print("\n=============================================")
+print("          PARTE 8: OPERADORES LÓGICOS        ")
+print("=============================================")
+
+for vinyl in catalog:
+    # Regla de publicación: precio > 0 y estado disponible
+    puede_publicarse = (vinyl["price"] > 0) and (vinyl["status"].lower() == "disponible")
+
+    # Regla de revisión: estado reservada o vendida
+    requiere_revision = (vinyl["status"].lower() == "reservada") or (vinyl["status"].lower() == "vendida")
+
+    # Regla de piezas no vendidas: estado diferente de vendida
+    no_vendida = vinyl["status"].lower() != "vendida"
+
+    print(f"Álbum: {vinyl['name']} | Estado: {vinyl['status']}")
+    print(f"  -> ¿Puede publicarse?: {puede_publicarse}")
+    print(f"  -> ¿Requiere revisión?: {requiere_revision}")
+    print(f"  -> ¿No está vendida?: {no_vendida}")
+    print("-" * 45)
