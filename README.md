@@ -9,15 +9,35 @@
   <img src="https://img.shields.io/badge/CLEAN_CODE-NO_ELSE_🕺-7928ca?style=for-the-badge" alt="Clean Code">
   <img src="https://img.shields.io/badge/GIT-COMMITS_AL_RITMO_🎵-ffb800?style=for-the-badge&logo=git&logoColor=black" alt="Git">
 </p>
+<div align="center">
 
-<!-- Sucesión dinámica y fluida de discos y notas musicales -->
-<marquee behavior="alternate" scrollamount="4" style="background: #0a0a0c; padding: 14px; border-radius: 10px; font-size: 30px; border: 2px dashed #00ffcc;">
-  💿 &nbsp; 🎶 &nbsp; 🎧 &nbsp; 🎵 &nbsp; 💿 &nbsp; 🎶 &nbsp; 🎧 &nbsp; 🎵 &nbsp; 💿
-</marquee>
+  <!-- Banda deslizante de vinilos animados reales -->
+  <marquee width="100%" behavior="alternate" scrollamount="6">
+    <h1>💿 🎧 🎵 🎶 🎸 🪩 🔊 💿</h1>
+  </marquee>
 
-> *🎵 "You got to be starting something... ¡Directo al plato con el mejor ritmo y código limpio!"* 🎵
+  <br>
+
+  <!-- Tarjeta central de estilo tocadiscos neón -->
+  <table border="0" cellspacing="0" cellpadding="15" style="background: rgba(255,0,127,0.05); border-radius: 15px;">
+    <tr>
+      <td align="center">
+        <h2><font color="#ff007f">🎧 ZONA DE MEZCLAS - TOCADISCOS ACTIVE 🎧</font></h2>
+        <p><em><font color="#00ffcc">⚡ "Cargando el amplificador... ¡Lógica impecable, código limpio y el mejor ritmo en cada surco!" ⚡</font></em></p>
+      </td>
+    </tr>
+  </table>
+
+  <br>
+
+  <!-- Ecualizador inferior con movimiento -->
+  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" alt="Ondas de ritmo" />
 
 </div>
+
+</div>
+
+
 
 ## 🎯 Objetivo del Programa
 Construir una herramienta de línea de comandos (CLI) eficiente y con una marcada identidad retro para gestionar un catálogo básico de discos de vinilo coleccionables. El sistema integra filtros avanzados, cálculo de métricas financieras, manipulación de cadenas de texto y un control estricto de validación de entradas de usuario, cumpliendo estrictamente con buenas prácticas de desarrollo y **sin utilizar ni una sola sentencia `else`**.
