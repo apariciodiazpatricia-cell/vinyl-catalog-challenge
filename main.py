@@ -218,6 +218,42 @@ print(f"  - En mayúsculas (upper): {username.upper()}")
 print(f"  - En formato título (title): {username.title()}")
 
 
+# Por sentido común (parte 11 por delante de la 10)
+
+print("\n=============================================")
+print("        PARTE 11: MÉTRICAS DEL CATÁLOGO      ")
+print("=============================================")
+
+# 1, 2 y 3. Cantidad de piezas por cada estado de forma segura sin usar 'else'
+cantidad_disponibles = len([vinyl for vinyl in catalog if vinyl["status"].lower() == "disponible"])
+cantidad_reservadas = len([vinyl for vinyl in catalog if vinyl["status"].lower() == "reservada"])
+cantidad_vendidas = len([vinyl for vinyl in catalog if vinyl["status"].lower() == "vendida"])
+
+# 4. Cantidad total de piezas
+cantidad_total = len(catalog)
+
+# 5 y 6. Suma total de precios y precio promedio (evaluando si el catálogo tiene elementos)
+suma_precios = 0.0
+promedio_precios = 0.0
+
+if catalog:
+    suma_precios = sum(vinyl["price"] for vinyl in catalog)
+    promedio_precios = suma_precios / len(catalog)
+
+# Mostrar todas las métricas calculadas
+print(f"1. Cantidad de piezas disponibles: {cantidad_disponibles}")
+print(f"2. Cantidad de piezas reservadas: {cantidad_reservadas}")
+print(f"3. Cantidad de piezas vendidas: {cantidad_vendidas}")
+print(f"4. Cantidad total de piezas: {cantidad_total}")
+print(f"5. Suma total de los precios: {suma_precios:.2f}€")
+print(f"6. Precio promedio del catálogo: {promedio_precios:.2f}€")
+
+# Mostrar las piezas enumeradas con una posición consecutiva (usando enumerate con índice desde 1)
+print("\n--- Listado Consecutivo de Álbumes ---")
+for indice, vinyl in enumerate(catalog, start=1):
+    print(f"{indice}. {vinyl['name']}")
+
+
 print("\n=============================================")
 print("        PARTE 10: MENÚ INTERACTIVO           ")
 print("=============================================")
@@ -262,4 +298,5 @@ while opcion != "4":
     # Opción no válida (validada sin usar 'else')
     if opcion not in ["1", "2", "3", "4"]:
         print("\nError: Opción no válida. Por favor, introduce un número entre 1 y 4.")
+
 
