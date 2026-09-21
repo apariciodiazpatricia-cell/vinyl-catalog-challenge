@@ -109,7 +109,7 @@ Lenguaje: Python 3.x
 
 Control de versiones: Git & GitHub (Historial estructurado bajo los estándares de Conventional Commits).
 
-Entorno de ejecución: Terminal CLI / Visual Studio Code.
+
 
 ```
 ## ⚙️ Cómo Ejecutar el Programa
