@@ -132,3 +132,15 @@ def get_catalog_summary(catalog):
 
     return summary
 
+
+def get_pieces_by_category(catalog, category):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+    matching_names = []
+    for piece in catalog:
+        if piece.get("category") == category:
+            matching_names.append(piece.get("name"))
+
+    return matching_names
