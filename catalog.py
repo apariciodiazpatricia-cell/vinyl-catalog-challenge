@@ -177,3 +177,19 @@ def filter_by_status(catalog, status):
             matching_pieces.append(piece)
 
     return matching_pieces
+
+
+def filter_by_min_price(catalog, min_price):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+
+    validated_min_price = validate_price(min_price)
+
+    matching_pieces = []
+    for piece in catalog:
+        if piece.get("price", 0) > validated_min_price:
+            matching_pieces.append(piece)
+
+    return matching_pieces
