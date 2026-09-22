@@ -59,7 +59,7 @@ def find_piece_by_id(catalog, piece_id):
     return None
 
 
-def delete_piece(catalog, piece_id):
+def remove_piece(catalog, piece_id):
 
     if not isinstance(catalog, list):
         raise ValueError("Error: The catalog must be a valid list.")
@@ -69,11 +69,22 @@ def delete_piece(catalog, piece_id):
 
     target_id = str(piece_id).strip()
 
-    for index, piece in enumerate(catalog):
-        if piece["id"] == target_id:
-            return catalog.pop(index)
+    try:
+        found_index = -1
+        for index, piece in enumerate(catalog):
+            if piece["id"] == target_id:
+                found_index = index
+                break
 
-    return None
+        if found_index == -1:
+            raise ValueError(f"Error: Piece with ID '{target_id}' was not found.")
+
+        catalog.pop(found_index)
+        return True
+
+    except ValueError as e:
+
+        return False
 
 
 def update_piece(catalog, piece_id, price=None, status=None, description=None):
