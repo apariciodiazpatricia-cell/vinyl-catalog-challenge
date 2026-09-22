@@ -57,3 +57,20 @@ def find_piece_by_id(catalog, piece_id):
             return piece
 
     return None
+
+
+def delete_piece(catalog, piece_id):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+    if not piece_id or not str(piece_id).strip():
+        raise ValueError("Error: The piece ID cannot be empty.")
+
+    target_id = str(piece_id).strip()
+
+    for index, piece in enumerate(catalog):
+        if piece["id"] == target_id:
+            return catalog.pop(index)
+
+    return None
