@@ -162,3 +162,18 @@ def piece_exists(catalog, piece_id):
 
     return False
 
+
+def filter_by_status(catalog, status):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+
+    validated_status = validate_status(status)
+
+    matching_pieces = []
+    for piece in catalog:
+        if piece.get("status") == validated_status:
+            matching_pieces.append(piece)
+
+    return matching_pieces
