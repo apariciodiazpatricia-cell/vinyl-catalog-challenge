@@ -74,3 +74,35 @@ def delete_piece(catalog, piece_id):
             return catalog.pop(index)
 
     return None
+
+
+def update_piece(catalog, piece_id, price=None, status=None, description=None):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+    if not piece_id or not str(piece_id).strip():
+        raise ValueError("Error: The piece ID cannot be empty.")
+
+    target_id = str(piece_id).strip()
+
+    piece = None
+    for item in catalog:
+        if item["id"] == target_id:
+            piece = item
+            break
+
+    if not piece:
+        return None
+
+    if price is not None:
+        piece["price"] = validate_price(price)
+
+    if status is not None:
+        piece["status"] = validate_status(status)
+
+    if description is not None:
+        validated_desc = validate_description(description)
+        piece["description"] = validated_desc.strip()
+
+    return piece
