@@ -144,3 +144,21 @@ def get_pieces_by_category(catalog, category):
             matching_names.append(piece.get("name"))
 
     return matching_names
+
+
+def piece_exists(catalog, piece_id):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+    if not piece_id or not str(piece_id).strip():
+        return False
+
+    target_id = str(piece_id).strip()
+
+    for piece in catalog:
+        if piece.get("id") == target_id:
+            return True
+
+    return False
+
