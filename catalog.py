@@ -193,3 +193,27 @@ def filter_by_min_price(catalog, min_price):
             matching_pieces.append(piece)
 
     return matching_pieces
+
+
+def get_average_price(catalog):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+    if not catalog:
+        return 0.0
+
+    total_price = 0.0
+    count = 0
+    for piece in catalog:
+        price = piece.get("price")
+        if price is not None:
+            total_price += float(price)
+            count += 1
+
+    if count == 0:
+        return 0.0
+
+    return total_price / count
+
+
