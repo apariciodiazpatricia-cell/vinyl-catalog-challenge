@@ -117,3 +117,18 @@ def update_piece(catalog, piece_id, price=None, status=None, description=None):
         piece["description"] = validated_desc.strip()
 
     return piece
+
+
+def get_catalog_summary(catalog):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+    summary = {}
+    for piece in catalog:
+        category = piece.get("category")
+        if category:
+            summary[category] = summary.get(category, 0) + 1
+
+    return summary
+
