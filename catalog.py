@@ -29,3 +29,14 @@ def add_piece(catalog, piece_id, name, category, price, status, description):
 
     catalog.append(new_piece)
     return new_piece
+
+
+def list_pieces(catalog):
+
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+    if not catalog:
+        return []
+
+    return [piece["name"] for piece in catalog]
