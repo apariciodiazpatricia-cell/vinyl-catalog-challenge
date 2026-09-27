@@ -6,7 +6,6 @@
 <p>
   <img src="https://img.shields.io/badge/PYTHON-3.x_--_GROOVE_ON-ff007f?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/STATUS-EN_LA_PISTA_💃-00ffcc?style=for-the-badge&logoColor=black" alt="Status">
-  <img src="https://img.shields.io/badge/CLEAN_CODE-NO_ELSE_🕺-7928ca?style=for-the-badge" alt="Clean Code">
   <img src="https://img.shields.io/badge/GIT-COMMITS_AL_RITMO_🎵-ffb800?style=for-the-badge&logo=git&logoColor=black" alt="Git">
 </p>
 <div align="center">
@@ -40,26 +39,45 @@
 
 
 ## 🎯 Objetivo del Programa
-Construir una herramienta de línea de comandos (CLI) eficiente y con una marcada identidad retro para gestionar un catálogo básico de discos de vinilo coleccionables. El sistema integra filtros avanzados, cálculo de métricas financieras, manipulación de cadenas de texto y un control estricto de validación de entradas de usuario, cumpliendo estrictamente con buenas prácticas de desarrollo y **sin utilizar ni una sola sentencia `else`**.
-
+Desarrollar una herramienta de línea de comandos (CLI) avanzada en Python estructurada bajo un modelo de **arquitectura modular**. Su propósito es la gestión integral de un inventario de piezas coleccionables (vinilos) aplicando validaciones estrictas de datos mediante funciones atómicas, manejo profesional de excepciones (`try-except` y `raise`), filtrados avanzados por estados y precios, métricas estadísticas y un menú interactivo robusto del 1 al 8 que garantiza la estabilidad absoluta del sistema.
 ---
 
 ## 📂 Contexto del Catálogo
-El programa administra un inventario inspirado en la época dorada de la música analógica, estructurado en memoria bajo la colección principal llamada `catalog`. Cada pieza recopila su identificador único (`id`), nombre del álbum/artista (`name`), categoría musical (`category`), precio de referencia (`price`), estado operativo (`status` - *disponible*, *reservada*, *vendida*) y una descripción detallada (`description`) que certifica su autenticidad mediante palabras clave obligatorias (*'usada'* o *'certificada'*).
+El proyecto cumple estrictamente con el principio de separación de responsabilidades, desacoplando el código fuente en tres módulos independientes:
+
+```text
+catalogo_coleccionables/
+├── catalog.py        -> Lógica de negocio, gestión de inventario, búsquedas, filtros y métricas.
+├── validations.py    -> Módulo de validaciones atómicas con responsabilidad única (raise / ValueError).
+├── main.py           -> Interfaz de usuario por consola, bucles de control y menú interactivo (1-8).
+└── README.md         -> Documentación técnica completa del proyecto.
 
 ---
-
+Cada pieza recopila su identificador único (id), nombre del álbum/artista (name), categoría musical (category), precio de referencia (price), estado operativo (status - disponible, reservada, vendida) y una descripción detallada (description) validada mediante palabras clave obligatorias ('usada' o 'certificada').
+```
 ## 🚀 Funcionalidades Implementadas
+Arquitectura Modular (Partes 1 - 11): Funciones optimizadas con parámetros y retorno, sin duplicación de lógica y con validaciones centralizadas en módulos externos.
 
-* **Registro con Validación Robusta (Partes 1 - 3 & 12):** Captura de 10 piezas coleccionables asegurando que no existan nombres vacíos, aplicando control de excepciones (`try-except`) para precios numéricos estrictamente mayores a cero, y filtrando estados y palabras clave obligatorias en las descripciones.
-* **Gestión Dinámica de Categorías (Parte 4):** Extracción automatizada de categorías mediante *Sets* para eliminar duplicados y contabilizar la variedad musical del inventario.
-* **Filtrado Avanzado (Partes 6 & 7):** Consultas personalizadas para aislar piezas según su estado operativo y filtrado dinámico por umbrales de precio mínimo ingresados por el usuario.
-* **Evaluación Lógica (Parte 8):** Reglas de negocio automatizadas para determinar la elegibilidad de publicación de piezas, necesidades de revisión y control de inventario no vendido.
-* **Manipulación de Strings (Parte 9):** Normalización de texto, formato de títulos, concatenación segura, interpolación con f-strings y procesamiento de listas de etiquetas separadas por comas.
-* **Métricas y Enumeración Consecutiva (Parte 11):** Conteo automatizado por estados, cálculo de la suma total de precios, obtención del precio promedio y generación de listas ordenadas mediante `enumerate()`.
-* **Menú Interactivo CLI (Parte 10):** Interfaz de navegación continua basada en bucles `while` con control de opciones inválidas y salida segura.
+Manejo de Errores con raise y ValueError (Parte 11): Funciones de validación tempranas (validate_price, validate_status, validate_description, validate_not_empty) que interceptan anomalías y previenen caídas del sistema (exit code 1).
+
+Gestión Dinámica de Categorías y Resúmenes: Extracción automatizada mediante Sets y contadores analíticos agrupados por categorías.
+
+Filtrado Avanzado y Precios Mínimos: Aislamiento de piezas por estado operativo estricto y consultas dinámicas superiores a umbrales numéricos.
+
+Métricas y Estadísticas del Catálogo: Cálculo automatizado del precio promedio protegido contra división por cero y listados consecutivos mediante enumerate().
+
+Menú Interactivo CLI Ampliado (Parte 12): Interfaz de navegación continua basada en bucles while y bloques try-except conectada de forma transparente con el backend (opciones 1 a 8).
 
 ---
+
+🔍 Auditoría de Comprobaciones y Verificación al 100%
+Durante la fase de auditoría técnica en la rama feature/level-2, se han verificado los siguientes puntos críticos:
+
+Sanitización de Entradas: Introducir datos no numéricos en los precios activa correctamente el control de excepciones sin romper la aplicación.
+
+Restricción de Estados y Keywords: Bloqueo inmediato de estados no permitidos y exigencia estricta de las palabras usada o certificada en las descripciones.
+
+Estabilidad del Menú (1-8): Comprobación completa de adición, resúmenes, filtrados, promedios, verificación de existencia por ID y eliminación segura.
 
 ## 💻 Ejemplo de Interacción con el Programa
 
@@ -109,15 +127,45 @@ Lenguaje: Python 3.x
 
 Control de versiones: Git & GitHub (Historial estructurado bajo los estándares de Conventional Commits).
 
+==================================================
+¡Bienvenido al sistema de gestión de catálogo!
+==================================================
+1. Agregar una pieza
+2. Resumen del catálogo (por categoría)
+3. Mostrar piezas por categoría
+4. Mostrar piezas disponibles
+5. Mostrar el precio promedio
+6. Verificar si una pieza existe por ID
+7. Eliminar una pieza por ID
+8. Salir
+Elige una opción (1-8): 1
+
+--- AGREGAR NUEVA PIEZA ---
+ID de la pieza: V01
+Nombre: The Dark Side of the Moon
+Categoría: Rock Clásico
+Introduce el precio (ej. 45.0): 45.0
+Introduce el estado (disponible / reservada / vendida): disponible
+Introduce la descripción (debe incluir 'usada' o 'certificada'): Edición original usada en excelente estado
+
+¡Éxito! Pieza agregada correctamente al catálogo.
+
 
 
 ```
+🛠️ Tecnologías Utilizadas
+Lenguaje: Python 3.10+
+
+Control de versiones: Git & GitHub (Historial limpio estructurado bajo los estándares de Conventional Commits en inglés).
+
+Entorno de Trabajo: PyCharm /soporte para entornos virtuales (.venv).
+
 ## ⚙️ Cómo Ejecutar el Programa
 
 Clona este repositorio en tu equipo local:
 
 ```bash
-git clone [https://github.com/tu-usuario/vinyl-catalog-challenge.git](https://github.com/tu-usuario/vinyl-catalog-challenge.git)
+git clone [https://github.com/apariciodiazpatricia-cell/vinyl-catalog-challenge.git](https://github.com/apariciodiazpatricia-cell/vinyl-catalog-challenge.git)
 ```
 Accede al directorio del proyecto:
 
