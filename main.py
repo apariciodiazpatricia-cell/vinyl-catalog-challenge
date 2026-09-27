@@ -1,4 +1,21 @@
-# Main file for the vinyl catalog system
+from catalog import (
+    add_piece,
+    get_catalog_summary,
+    get_pieces_by_category,
+    piece_exists,
+    filter_by_status,
+    filter_by_min_price,
+    get_average_price,
+    remove_piece
+)
+from validations import (
+    validate_price,
+    validate_status,
+    validate_description
+)
+
+
+
 catalogName = "Vinyl Catalog Challenge"
 welcomeMessage = "¡Bienvenido al catálogo de vinilos coleccionables!"
 
@@ -15,9 +32,28 @@ print("\n--- Registro de Nuevo Vinilo ---")
 vinylId = input("Introduce el identificador del vinilo (ej. V01): ")
 vinylName = input("Introduce el nombre del álbum/artista: ")
 vinylCategory = input("Introduce la categoría (ej. Rock, Pop): ")
-vinylPrice = float(input("Introduce el precio (ej. 45.0): "))
-vinylStatus = input("Introduce el estado (disponible/reservada/vendida): ")
-vinylDescription = input("Introduce la descripción (debe incluir 'usada' o 'certificada'): ")
+vinylPrice = None
+while vinylPrice is None:
+    try:
+        price_input = input("Introduce el precio (ej. 45.0): ")
+        vinylPrice = validate_price(price_input)
+    except ValueError as e:
+        print(e)
+vinylStatus = None
+while vinylStatus is None:
+    try:
+        status_input = input("Introduce el estado (disponible / reservada / vendida): ")
+        vinylStatus = validate_status(status_input)
+    except ValueError as e:
+        print(e)
+vinylDescription = None
+while vinylDescription is None:
+    try:
+        desc_input = input("Introduce la descripción (debe incluir 'usada' o 'certificada'): ")
+        vinylDescription = validate_description(desc_input)
+    except ValueError as e:
+        print(e)
+
 
 vinylItem = {
     "id": vinylId,
@@ -59,17 +95,13 @@ for i in range(10):
 
     vinylCategory = input("Introduce la categoría (ej. Rock, Pop): ")
 
-
     vinylPrice = None
     while vinylPrice is None:
         try:
-            precio_temp = float(input("Introduce el precio (ej. 45.0): "))
-            if precio_temp > 0:
-                vinylPrice = precio_temp
-            if precio_temp <= 0:
-                print("Error: El precio debe ser mayor que cero.")
-        except ValueError:
-            print("Error: Debes introducir un valor numérico válido.")
+            price_input = input("Introduce el precio (ej. 45.0): ")
+            vinylPrice = validate_price(price_input)
+        except ValueError as e:
+            print(e)
 
 
     estados_permitidos = ["disponible", "reservada", "vendida"]
@@ -315,3 +347,124 @@ while opcion != "4":
         print("\nError: Opción no válida. Por favor, introduce un número entre 1 y 4.")
 
 
+
+def print_menu():
+
+    print("1. Agregar una pieza")
+    print("2. Mostrar resumen del catálogo (por categoría)")
+    print("3. Mostrar piezas por categoría")
+    print("4. Mostrar piezas disponibles")
+    print("5. Mostrar el precio promedio")
+    print("6. Verificar si una pieza existe por ID")
+    print("7. Eliminar una pieza por ID")
+    print("8. Salir")
+
+
+def main():
+    catalog = []
+
+    while True:
+        print_menu()
+        option = input("\nElige una opción (1-8): ").strip()
+
+        try:
+            if option == "1":
+                print("\n--- AGREGAR NUEVA PIEZA ---")
+                piece_id = input("ID de la pieza: ")
+                name = input("Nombre: ")
+                category = input("Categoría: ")
+
+                # Usamos la función modularizada para validar el precio
+                price = None
+                while price is None:
+                    try:
+                        price_input = input("Introduce el precio (ej. 45.0): ")
+                        price = validate_price(price_input)
+                    except ValueError as e:
+                        print(e)
+
+                # Usamos la función modularizada para validar el estado
+                status = None
+                while status is None:
+                    try:
+                        status_input = input("Introduce el estado (disponible / reservada / vendida): ")
+                        status = validate_status(status_input)
+                    except ValueError as e:
+                        print(e)
+
+                # Usamos la función modularizada para validar la descripción
+                description = None
+                while description is None:
+                    try:
+                        desc_input = input("Introduce la descripción (debe incluir 'usada' o 'certificada'): ")
+                        description = validate_description(desc_input)
+                    except ValueError as e:
+                        print(e)
+
+                add_piece(catalog, piece_id, name, category, price, status, description)
+                print("\n¡Éxito! Pieza agregada correctamente al catálogo.")
+
+            elif option == "2":
+                print("\n--- RESUMEN DEL CATÁLOGO ---")
+                summary = get_catalog_summary(catalog)
+                if not summary:
+                    print("El catálogo está vacío actualmente.")
+                else:
+                    for cat, count in summary.items():
+                        print(f"  - {cat}: {count} pieza(s)")
+
+            elif option == "3":
+                print("\n--- PIEZAS POR CATEGORÍA ---")
+                category = input("Introduce la categoría a consultar: ")
+                names = get_pieces_by_category(catalog, category)
+                if not names:
+                    print(f"No se encontraron piezas en la categoría '{category}'.")
+                else:
+                    print(f"Piezas en la categoría '{category}': {', '.join(names)}")
+
+            elif option == "4":
+                print("\n--- PIEZAS DISPONIBLES ---")
+                available_pieces = filter_by_status(catalog, "disponible")
+                if not available_pieces:
+                    print("No hay piezas disponibles en este momento.")
+                else:
+                    for p in available_pieces:
+                        print(f"  - ID: {p['id']} | {p['name']} ({p['category']}) - {p['price']}€")
+
+            elif option == "5":
+                print("\n--- PRECIO PROMEDIO ---")
+                avg = get_average_price(catalog)
+                print(f"El precio promedio del catálogo es: {avg:.2f}€")
+
+            elif option == "6":
+                print("\n--- VERIFICAR EXISTENCIA DE PIEZA ---")
+                piece_id = input("Introduce el ID de la pieza a buscar: ")
+                exists = piece_exists(catalog, piece_id)
+                if exists:
+                    print(f"Sí, la pieza con ID '{piece_id}' existe en el catálogo.")
+                else:
+                    print(f"No se encuentra ninguna pieza con el ID '{piece_id}'.")
+
+            elif option == "7":
+                print("\n--- ELIMINAR PIEZA ---")
+                piece_id = input("Introduce el ID de la pieza que deseas eliminar: ")
+                deleted = remove_piece(catalog, piece_id)
+                if deleted:
+                    print(f"¡Pieza con ID '{piece_id}' eliminada con éxito!")
+                else:
+                    print(f"No se pudo eliminar: el ID '{piece_id}' no existe en el catálogo.")
+
+            elif option == "8":
+                print("\n¡Gracias por utilizar el sistema de gestión de catálogo! Saliendo...")
+                break
+            else:
+                print("\nOpción no válida. Por favor, selecciona un número entre 1 y 8.")
+
+        except ValueError as e:
+            print(f"\n[ERROR] {e}")
+        except Exception as e:
+            print(f"\n[ERROR INESPERADO] {e}")
+
+
+if __name__ == "__main__":
+    main()

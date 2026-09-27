@@ -62,3 +62,68 @@ Presentación Visual Synthwave / Cyberpunk: Uso de un README.md optimizado con i
 
 6. Conclusiones
 El desarrollo del Vinyl Catalog CLI demuestra cómo una aplicación basada en consola puede estructurarse de manera profesional y robusta cumpliendo estrictamente con todas las especificaciones de negocio, control de errores y principios de ingeniería de software limpia. El proyecto se presenta en un formato de repositorio optimizado e listo para su evaluación académica.
+
+📋 Documentación Técnica del Proyecto: Catálogo de Piezas Coleccionables (Nivel 2)
+1. Resumen Ejecutivo y Visión General
+El proyecto Catálogo de Piezas Coleccionables (Vinyl Catalog Challenge) es una aplicación de línea de comandos (CLI) desarrollada en Python bajo una arquitectura modular y limpia. Su objetivo es la gestión integral de un inventario de piezas aplicando validaciones estrictas de datos mediante funciones atómicas, manejo profesional de excepciones (try-except y raise), filtrados avanzados por estados y precios, métricas estadísticas y un menú interactivo robusto que garantiza la estabilidad absoluta del sistema.
+
+2. Objetivos Académicos y del Proyecto
+Arquitectura Modular y Separación de Responsabilidades: Desacoplar la lógica en tres módulos (main.py, catalog.py y validations.py) para evitar la duplicación de código y asegurar la mantenibilidad.
+
+Manejo Robusto de Errores (raise y ValueError): Interceptar entradas incorrectas mediante validaciones tempranas y excepciones descriptivas que evitan la caída del programa (exit code 1).
+
+Control de Versiones Profesional: Mantener un historial de commits limpio y estandarizado en inglés mediante el estándar de Conventional Commits.
+
+3. Arquitectura y Decisiones de Diseño
+Diseño Multimodular:
+
+validations.py: Funciones de validación puras de responsabilidad única.
+
+catalog.py: Lógica de negocio (inserción, búsquedas por ID, eliminaciones seguras, resúmenes por categorías y filtros).
+
+main.py: Orquesta la interfaz de consola, los bucles de control y el menú interactivo (opciones 1 a 8).
+
+Flujo Controlado con Bucles y Excepciones: Las entradas por consola están encapsuladas en bucles while combinados con bloques try-except, obligando al usuario a introducir datos válidos sin interrumpir la ejecución.
+
+4. Auditoría, Comprobaciones y Verificación al 100%
+Durante la fase de pruebas y despliegue del proyecto en la rama feature/level-2, se han verificado y auditado sistemáticamente los siguientes puntos críticos, garantizando un funcionamiento impecable:
+
+Gestión de Errores de Entrada (Sanitización):
+
+Comprobado que introducir precios no numéricos (ej. "treinta", "hbjh") activa correctamente el bloque try-except de validate_price, mostrando el mensaje de error descriptivo sin romper la aplicación.
+
+Validación estricta de que los precios introducidos sean estrictamente mayores a cero.
+
+Restricción de Estados:
+
+Verificado que estados no permitidos (ej. "no se") sean rechazados de inmediato por validate_status, restringiendo los valores exclusivamente al conjunto permitido: disponible, reservada, vendida.
+
+Control de Palabras Clave Obligatorias:
+
+Comprobado que la función validate_description rechaza descripciones que no incluyan obligatoriamente los términos clave usada o certificada.
+
+Navegación e Integridad del Menú Interactivo:
+
+Auditoría completa de las opciones del menú (1 a 8): adición de piezas, cálculo correcto de resúmenes por categoría, filtrados dinámicos por estado, obtención del precio promedio con protección contra división por cero, verificación de existencia y eliminación segura de registros por ID.
+
+Trazabilidad del Código (Git & Conventional Commits):
+
+Historial de versiones estructurado mediante commits limpios y detallados en inglés para la gestión de importaciones, corrección de errores de flujo, incorporación de validaciones y refactorización del menú.
+
+5. Stack Tecnológico
+Lenguaje: Python 3.10+
+
+Control de Versiones: Git y GitHub (Conventional Commits en inglés).
+
+Entorno de Trabajo: PyCharm / Visual Studio Code con soporte para entorno virtual (.venv).
+
+6. Instrucciones de Ejecución
+Clona el repositorio y sitúate en la rama de trabajo (feature/level-2).
+
+Abre la terminal integrada en la raíz del proyecto y activa el entorno virtual (.venv).
+
+Ejecuta el programa principal con el comando:
+
+Bash
+python main.py
+Interactúa con el menú por consola introduciendo las opciones numéricas del 1 al 8 para administrar el catálogo de vinilos.
