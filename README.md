@@ -120,7 +120,7 @@ Introduce la descripción (debe incluir 'usada' o 'certificada'): Edición origi
 4. Salir
 Elige una opción (1-4): 4
 
-¡Gracias por utilizar el gestor de vinilos! Saliendo del programa...inyl-catalog-challenge
+¡Gracias por utilizar el gestor de vinilos! Saliendo del programa...
 
 🛠️ Tecnologías Utilizadas
 Lenguaje: Python 3.x
@@ -182,7 +182,61 @@ python main.py
 ---
 
 ---
+## 🧪 Pruebas Automatizadas con PyTest
 
+El proyecto cuenta con una suite completa de **40 pruebas unitarias y funcionales** implementadas con `pytest`, garantizando la integridad de las operaciones, la robustez de las validaciones de entrada y el correcto funcionamiento de la lógica de negocio del catálogo[cite: 7].
+
+### 📋 Cobertura de las Pruebas
+
+| Archivo de Prueba | Tests | ¿Qué verifica? | Herramientas clave |
+| :--- | :---: | :--- | :--- |
+| **`test/test_validations.py`** | 25 | • **Campos no vacíos** (`validate_not_empty`): rechazo de cadenas vacías, espacios, `None` y tipos no string.<br>• **Precios válidos** (`validate_price`): números positivos, rechazo de $\le 0$, booleanos y tipos no numéricos.<br>• **Estados permitidos** (`validate_status`): normalización (`strip`, `lower`) y rechazo de estados inválidos.<br>• **Descripciones** (`validate_description`): presencia obligatoria de "usada" o "certificada". | `@pytest.mark.parametrize`, `pytest.raises` |
+| **`test/test_catalog.py`** | 15 | • **Adición de piezas** con datos limpios y detección estricta de IDs duplicados.<br>• **Búsqueda** por ID existente e inexistente (`None`).<br>• **Eliminación** de piezas y retorno de estado booleano.<br>• **Cálculo de precio promedio** (`get_average_price`) y manejo seguro de catálogos vacíos. | `@pytest.fixture`, `pytest.raises` |
+
+---
+
+### ⚡ Comandos para Ejecutar las Pruebas
+
+Para ejecutar la suite de pruebas desde la terminal integrada de PyCharm con el entorno virtual activo:
+
+```bash
+# Ejecutar toda la suite de pruebas detallada
+$env:PYTHONPATH="."; pytest -v
+
+# Ejecutar un módulo de pruebas específico
+$env:PYTHONPATH="."; pytest test/test_catalog.py -v
+$env:PYTHONPATH="."; pytest test/test_validations.py -v
+```
+🔄 Flujo de Datos y Arquitectura
+El sistema está diseñado bajo una arquitectura modular y desacoplada, garantizando una separación clara de responsabilidades entre la interfaz de usuario, las reglas de negocio y los validadores de datos:
+```
+👤 Usuario
+          │
+          ▼
+┌───────────────────┐
+│     main.py       │ ← Menú interactivo de consola + manejadores (handlers)
+└─────────┬─────────┘
+          │
+          ├────────────────────────────────┬────────────────────────────────┐
+          ▼                                ▼                                ▼
+  add_piece()                      list_pieces()                    filter_by_status()
+  find_piece_by_id()               remove_piece()                   get_average_price()
+  update_piece()                   get_catalog_summary()            filter_by_min_price()
+          │                                │                                │
+          └────────────────────────────────┼────────────────────────────────┘
+                                           │
+                                           ▼
+                           ┌───────────────────────────────┐
+                           │       validations.py          │ ← Guardián de datos y saneamiento
+                           └───────────────┬───────────────┘
+                                           │
+                                           ▼
+                           ┌───────────────────────────────┐
+                           │      catalog: list of dicts   │ ← [{"id": "...", "name": "...", ...}]
+                           └───────────────────────────────┘
+
+```
+                        
 ## 📬 Contacto y Redes
 
 <div align="center">
