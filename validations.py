@@ -37,3 +37,4 @@ def validate_description(description):
     if "usada" not in desc_lower and "certificada" not in desc_lower:
         raise ValueError("Error: The description must include either 'usada' or 'certificada'.")
     return description
+
