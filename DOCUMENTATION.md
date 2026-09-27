@@ -127,3 +127,34 @@ Ejecuta el programa principal con el comando:
 Bash
 python main.py
 Interactúa con el menú por consola introduciendo las opciones numéricas del 1 al 8 para administrar el catálogo de vinilos.
+
+## 🧪 8. Arquitectura de Pruebas Automatizadas (Testing Suite)
+
+El proyecto incluye una robusta suite de **40 pruebas unitarias y funcionales** implementadas con **PyTest**, asegurando la cobertura total, la estabilidad del negocio y la integridad de las entradas de datos.
+
+### 📋 Estructura de Módulos de Prueba
+- **`test/test_validations.py` (25 tests)**:
+  - Valida la restricción de campos no vacíos (`validate_not_empty`) controlando nulos, espacios y tipos incorrectos.
+  - Comprueba precios válidos (`validate_price`) rechazando valores negativos, ceros, booleanos y cadenas no numéricas.
+  - Verifica los estados permitidos (`validate_status`) con normalización automática de mayúsculas y espacios.
+  - Somete a prueba las descripciones (`validate_description`) exigiendo la presencia obligatoria de las palabras clave *"usada"* o *"certificada"*.
+  - Utiliza decoradores avanzados como `@pytest.mark.parametrize` y el control de excepciones `pytest.raises`.
+
+- **`test/test_catalog.py` (15 tests)**:
+  - Comprueba la correcta inserción de piezas con limpieza de espacios mediante `add_piece`.
+  - Incorpora una validación estricta para evitar y detectar IDs duplicados (lanzando `ValueError`).
+  - Evalúa la búsqueda exitosa y nula por identificador (`find_piece_by_id`).
+  - Valida la eliminación lógica de elementos (`remove_piece`) y el cálculo seguro del precio promedio (`get_average_price`) con protección contra catálogos vacíos.
+  - Utiliza fixtures de PyTest (`@pytest.fixture`) para inicializar catálogos limpios de prueba.
+
+### ⚡ Ejecución de la Suite
+Para ejecutar el entorno de pruebas completo o módulos específicos desde la terminal con el entorno virtual activo:
+```bash
+# Ejecutar todas las pruebas con detalle (verbose)
+$env:PYTHONPATH="."; pytest -v
+
+# Ejecutar únicamente las pruebas del catálogo
+$env:PYTHONPATH="."; pytest test/test_catalog.py -v
+
+# Ejecutar únicamente las pruebas de validaciones
+$env:PYTHONPATH="."; pytest test/test_validations.py -v
