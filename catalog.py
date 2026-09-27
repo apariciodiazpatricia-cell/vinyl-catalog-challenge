@@ -9,6 +9,12 @@ from validations import (
 
 
 def add_piece(catalog, piece_id, name, category, price, status, description):
+    if not isinstance(catalog, list):
+        raise ValueError("Error: The catalog must be a valid list.")
+
+
+    if piece_exists(catalog, piece_id):
+        raise ValueError(f"Error: A piece with ID '{piece_id}' already exists.")
 
     validate_not_empty(piece_id, "id")
     validate_not_empty(name, "name")
