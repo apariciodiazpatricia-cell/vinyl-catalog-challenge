@@ -1,129 +1,125 @@
-Documentación Técnica del Proyecto: Catálogo de Piezas Coleccionables (CLI)
+📚 Documentación Técnica Completa: Catálogo de Piezas Coleccionables (Vinyl Catalog CLI)
 1. Resumen Ejecutivo y Visión General
-El proyecto Vinyl Catalog CLI / Catálogo de Coleccionables es una herramienta de línea de comandos (CLI) desarrollada en Python orientada a cumplir con los requerimientos del Reto Python Nivel I: Catálogo Básico de Coleccionables. Su propósito principal es permitir la gestión digital de un inventario de 10 piezas coleccionables, aplicando validaciones estrictas de datos, filtros avanzados por estados y precios, operadores lógicos para reglas de negocio, manipulación de cadenas de texto y una presentación visual inmersiva de estilo neón/synthwave.
+El proyecto Vinyl Catalog CLI (vinyl-catalog-challenge) es una aplicación avanzada de línea de comandos (CLI) desarrollada en Python. Su objetivo es la gestión digital integral de un inventario de piezas coleccionables (vinilos), aplicando un estándar de calidad profesional basado en Clean Code, validaciones estrictas de datos, manejo de excepciones, filtrados dinámicos, métricas estadísticas y una robusta suite de pruebas automatizadas.
 
-2. Objetivos Académicos y del Proyecto
-Eficiencia en CLI: Proveer una interfaz de comandos fluida, intuitiva y estructurada por consola que cubra los tres niveles de exigencia del reto (registro, operadores/filtros y menú interactivo/métricas).
+El proyecto se ha construido en dos grandes fases evolutivas:
 
-Filosofía de Código Limpio (Clean Code): Aplicar buenas prácticas de desarrollo estrictas, destacando la ausencia deliberada de estructuras de bifurcación condicional anidada (no-else return) para mejorar la legibilidad y reducir la complejidad ciclomática.
+Reto 1: Enfoque centralizado e interactivo en consola mediante un script principal (main.py).
 
-Gestión de Reglas de Negocio: Implementar validaciones de integridad de datos (precios numéricos positivos, estados restringidos y palabras clave obligatorias como usada o certificada en las descripciones).
+Reto 2: Evolución hacia una arquitectura modular, refactorización de código, validaciones atómicas mediante bloques de control de excepciones (raise / try-except), especificación de comportamiento en Gherkin y pruebas unitarias con PyTest.
+
+2. Objetivos Académicos y de Ingeniería
+Arquitectura Modular (Clean Architecture): Desacoplar gradualmente el código para separar la interfaz de usuario, la lógica de negocio y los validadores de datos.
+
+Filosofía de Código Limpio: Aplicar buenas prácticas como el uso de funciones atómicas, nombres descriptivos y la reducción de complejidad mediante validaciones tempranas (Guard Clauses).
+
+Robustez y Manejo de Errores: Interceptar entradas de usuario incorrectas mediante excepciones descriptivas (ValueError), previniendo caídas imprevistas del programa (crash).
+
+Calidad y Verificación (Testing): Garantizar la inmunidad del código ante fallos mediante una suite de pruebas automatizadas y especificaciones formales de comportamiento.
 
 3. Arquitectura y Decisiones de Diseño (Los "Porqués")
-¿Por qué Python para la lógica de la CLI?
-Tipado dinámico y versatilidad: Permite gestionar estructuras complejas (como la lista principal catalog con diccionarios y conjuntos set para categorías únicas) de forma nativa, limpia y rápida.
+💡 ¿Por qué Python para la lógica de la CLI?
+Tipado dinámico y versatilidad: Permite gestionar estructuras complejas de datos nativas (como listas de diccionarios para el catálogo o conjuntos set para extraer categorías únicas sin duplicados).
 
-Ecosistema robusto: Facilita la implementación de funciones de orden superior (filter, map), manipulación avanzada de strings y control de flujos iterativos.
+Ecosistema y control de flujos: Facilita la manipulación avanzada de cadenas de texto (strings) y la implementación de operaciones iterativas eficientes.
 
-¿Por qué el principio "No-Else"?
-Reducción de indentación: Al eliminar las sentencias else mediante la técnica de guard clauses (validaciones tempranas y errores anticipados), el flujo de ejecución se lee de manera lineal de arriba a abajo.
+💡 Evolución de la Estructura (Del Reto 1 al Reto 2)
+Reto 1 (main.py monolítico): Todo el flujo de registro, captura de datos mediante input(), bucles de control while y estructuras de bifurcación condicional (if-elif-else) se concentraron inicialmente en un único archivo ejecutable para validar la lógica base de la CLI.
 
-Mantenibilidad y Robustez: Facilita la validación de entradas de usuario (Nivel III) sin anidamientos excesivos, simplificando la depuración de errores (debugging).
+Reto 2 (Refactorización Modular): El código evolucionó hacia un diseño desacoplado en tres módulos independientes para cumplir con el principio de responsabilidad única:
 
-4. Guía de Implementación por Niveles (Funcionamiento del Sistema)
-NIVEL I – Registro de piezas y estructuras base
-Partes 1 a 3 (Inicialización y Captura): El programa inicia mostrando un mensaje de bienvenida al sistema de coleccionables. Acto seguido, ejecuta un flujo de captura por terminal para registrar exactamente 10 piezas coleccionables. Cada una almacena su identificador (id), nombre, categoría, precio decimal, estado y una descripción validada. Todo se almacena en la estructura principal catalog.
+main.py: Orquestador de la interfaz de consola, bucles y menú interactivo (opciones 1 a 8).
 
-Partes 4 y 5 (Categorías y Visualización): Se procesa un conjunto (set) para extraer las categorías únicas de forma automatizada, eliminando duplicados y midiendo la variedad de la colección. Finalmente, se recorre el catálogo mostrando la información tabular de cada pieza junto con las métricas generales.
+catalog.py: Núcleo de la lógica de negocio (inserciones, búsquedas por ID, eliminaciones seguras, resúmenes por categorías y filtros avanzados).
 
-NIVEL II – Filtros, operadores y strings
-Partes 6 y 7 (Filtros por Estado y Precio): El sistema permite filtrar dinámicamente las piezas según su estado actual (disponible, reservada, vendida) y aplicar consultas de precio mínimo introducido por el usuario mediante validación numérica.
+validations.py: El guardián de datos, encargado de las funciones atómicas de saneamiento y restricciones mediante raise.
 
-Parte 8 (Operadores Lógicos y Reglas de Negocio):
+4. Guía de Implementación por Fases
+🚀 FASE 1: RETO 1 – Lógica Inicial y Menú en Consola (main.py)
+Captura y Registro: Inicialización de un catálogo estructurado para almacenar coleccionables, exigiendo identificador (id), nombre, categoría, precio decimal, estado y descripción validada.
 
-Regla de publicación: Evalúa si el precio es mayor a cero y su estado es disponible.
+Estructuras de Control y Menú: Uso de bucles continuos combinados con menús interactivos por consola para añadir piezas, consultar listados, extraer categorías mediante sets y mostrar métricas generales.
 
-Regla de revisión: Identifica si la pieza está reservada o vendida.
+Manipulación de Cadenas: Aplicación de operaciones sobre textos (concatenación, interpolación con f-strings, normalización de mayúsculas/minúsculas y reemplazos de términos).
 
-Filtro de no vendidas: Extrae los elementos que no posean el estado de venta final.
+⚙️ FASE 2: RETO 2 – Refactorización, Validaciones y Testing
+Sanitización de Entradas: Bloqueo de precios no numéricos o menores/iguales a cero mediante bloques try-except.
 
-Parte 9 (Manipulación de Strings): Se realizan operaciones avanzadas de cadenas: concatenación, interpolación, separación de etiquetas introducidas por comas (retro,anime,limited), reemplazo de la palabra usada por certificada, normalización de nombres de usuario (eliminación de espacios, minúsculas, mayúsculas y formato título) y normalización de los títulos de las piezas.
+Restricción de Estados: Limitación exclusiva de los estados operativos a los valores permitidos (disponible, reservada, vendida).
 
-NIVEL III – Bucles, menú y métricas
-Partes 10 a 12 (Menú Interactivo, Métricas y Validaciones):
+Control de Palabras Clave: Exigencia obligatoria de los términos "usada" o "certificada" en la descripción de cada pieza.
 
-Menú Interactivo: Maneja un bucle de ejecución continua con opciones para mostrar el catálogo completo, filtrar piezas disponibles, calcular el precio promedio y salir de forma controlada, manejando opciones no válidas sin romper la ejecución.
+5. Especificación de Comportamiento (Gherkin / BDD)
+Para documentar formalmente las reglas de validación y la lógica del sistema incorporadas en el Reto 2, se definen los siguientes escenarios bajo la metodología Gherkin:
 
-Métricas y Enumeración: Calcula de forma automatizada la cantidad de piezas por estado, la suma total de precios, el promedio general y lista los elementos con una posición consecutiva enumerada (ej. 1. Figura Dragon Red).
+A. Módulo de Validaciones Atómicas (validations.py)
+Característica: Validación estricta de entradas en el catálogo
+  Como sistema, quiero verificar cada dato introducido por el usuario
+  Para evitar registros incorrectos o fallos de ejecución.
 
-Validaciones Robustas: Aplica filtros estrictos para asegurar que los precios sean mayores a cero, los nombres no estén vacíos, los estados pertenezcan al conjunto permitido y las descripciones incluyan obligatoriamente las palabras clave usada o certificada.
+  Escenario: Rechazo de campos vacíos o nulos
+    Dado que el usuario introduce un campo de texto obligatorio vacío o con espacios en blanco
+    Cuando el sistema ejecuta la función de validación de texto
+    Entonces se interrumpe la ejecución lanzando un ValueError.
 
-5. Stack Tecnológico y Justificación Detallada
-5.1. Núcleo de Desarrollo
-Python (Versión 3.x): Elegido por su sintaxis clara, agilidad en la gestión de entradas/salidas por consola y potencia nativa en el manejo de colecciones de datos.
+  Escenario: Restricción y validación de precios
+    Dado que el usuario introduce un precio de referencia
+    Cuando el sistema comprueba la regla numérica
+    Entonces se acepta únicamente si es un número mayor estricto que cero, rechazando tipos booleanos, ceros o negativos.
 
-5.2. Arquitectura y Buenas Prácticas
-Paradigma Clean Code y Guard Clauses ("No-Else"): Vital para asegurar un código legible, mantenible y con baja complejidad ciclomática al validar restricciones de negocio complejas.
+  Escenario: Normalización de estados operativos
+    Dado que el usuario introduce un estado para el vinilo
+    Cuando el sistema procesa el estado
+    Entonces se normalizan las minúsculas y espacios, rechazando cualquier valor ajeno a ("disponible", "reservada", "vendida").
 
-5.3. Control de Versiones e Integración
-Git, GitHub y Conventional Commits: Control de versiones distribuido con un historial estructurado en 15 commits profesionales, asegurando la trazabilidad de cada fase del desarrollo.
+  Escenario: Obligatoriedad de palabras clave en descripciones
+    Dado que el usuario escribe la descripción del artículo
+    Cuando el sistema valida el contenido
+    Entonces se exige obligatoriamente la presencia de las palabras "usada" o "certificada".
+    
+## 6. Suite de Pruebas Automatizadas (`PyTest`)
 
-Presentación Visual Synthwave / Cyberpunk: Uso de un README.md optimizado con insignias, tablas y marquesinas fluidas que garantizan una experiencia visual atractiva y sin fallos de renderizado en GitHub.
+El proyecto implementa una potente suite de pruebas unitarias para certificar la estabilidad absoluta del sistema:
 
-6. Conclusiones
-El desarrollo del Vinyl Catalog CLI demuestra cómo una aplicación basada en consola puede estructurarse de manera profesional y robusta cumpliendo estrictamente con todas las especificaciones de negocio, control de errores y principios de ingeniería de software limpia. El proyecto se presenta en un formato de repositorio optimizado e listo para su evaluación académica.
+| Módulo de Pruebas | Nivel de Cobertura | Aspectos Clave Verificados | Herramientas Principales |
+| :--- | :---: | :--- | :--- |
+| **`test/test_validations.py`** | 25 Tests | • Control estricto de nulos, cadenas vacías y tipos incorrectos.<br>• Validación de rangos numéricos y rechazo de booleanos.<br>• Normalización de estados y control de palabras clave obligatorias. | `@pytest.mark.parametrize`, `pytest.raises` |
+| **`test/test_catalog.py`** | 15 Tests | • Inserción de piezas y bloqueo estricto de IDs duplicados.<br>• Búsquedas exitosas y nulas por identificador único.<br>• Eliminación lógica y cálculo robusto de promedios financieros. | `@pytest.fixture`, `pytest.raises` |
 
-📋 Documentación Técnica del Proyecto: Catálogo de Piezas Coleccionables (Nivel 2)
-1. Resumen Ejecutivo y Visión General
-El proyecto Catálogo de Piezas Coleccionables (Vinyl Catalog Challenge) es una aplicación de línea de comandos (CLI) desarrollada en Python bajo una arquitectura modular y limpia. Su objetivo es la gestión integral de un inventario de piezas aplicando validaciones estrictas de datos mediante funciones atómicas, manejo profesional de excepciones (try-except y raise), filtrados avanzados por estados y precios, métricas estadísticas y un menú interactivo robusto que garantiza la estabilidad absoluta del sistema.
-
-2. Objetivos Académicos y del Proyecto
-Arquitectura Modular y Separación de Responsabilidades: Desacoplar la lógica en tres módulos (main.py, catalog.py y validations.py) para evitar la duplicación de código y asegurar la mantenibilidad.
-
-Manejo Robusto de Errores (raise y ValueError): Interceptar entradas incorrectas mediante validaciones tempranas y excepciones descriptivas que evitan la caída del programa (exit code 1).
-
-Control de Versiones Profesional: Mantener un historial de commits limpio y estandarizado en inglés mediante el estándar de Conventional Commits.
-
-3. Arquitectura y Decisiones de Diseño
-Diseño Multimodular:
-
-validations.py: Funciones de validación puras de responsabilidad única.
-
-catalog.py: Lógica de negocio (inserción, búsquedas por ID, eliminaciones seguras, resúmenes por categorías y filtros).
-
-main.py: Orquesta la interfaz de consola, los bucles de control y el menú interactivo (opciones 1 a 8).
-
-Flujo Controlado con Bucles y Excepciones: Las entradas por consola están encapsuladas en bucles while combinados con bloques try-except, obligando al usuario a introducir datos válidos sin interrumpir la ejecución.
-
-4. Auditoría, Comprobaciones y Verificación al 100%
-Durante la fase de pruebas y despliegue del proyecto en la rama feature/level-2, se han verificado y auditado sistemáticamente los siguientes puntos críticos, garantizando un funcionamiento impecable:
-
-Gestión de Errores de Entrada (Sanitización):
-
-Comprobado que introducir precios no numéricos (ej. "treinta", "hbjh") activa correctamente el bloque try-except de validate_price, mostrando el mensaje de error descriptivo sin romper la aplicación.
-
-Validación estricta de que los precios introducidos sean estrictamente mayores a cero.
-
-Restricción de Estados:
-
-Verificado que estados no permitidos (ej. "no se") sean rechazados de inmediato por validate_status, restringiendo los valores exclusivamente al conjunto permitido: disponible, reservada, vendida.
-
-Control de Palabras Clave Obligatorias:
-
-Comprobado que la función validate_description rechaza descripciones que no incluyan obligatoriamente los términos clave usada o certificada.
-
-Navegación e Integridad del Menú Interactivo:
-
-Auditoría completa de las opciones del menú (1 a 8): adición de piezas, cálculo correcto de resúmenes por categoría, filtrados dinámicos por estado, obtención del precio promedio con protección contra división por cero, verificación de existencia y eliminación segura de registros por ID.
-
-Trazabilidad del Código (Git & Conventional Commits):
-
-Historial de versiones estructurado mediante commits limpios y detallados en inglés para la gestión de importaciones, corrección de errores de flujo, incorporación de validaciones y refactorización del menú.
-
-5. Stack Tecnológico
+### ⚡ Instrucciones de Ejecución de las Pruebas
+Para ejecutar la suite completa de pruebas desde la terminal con el entorno virtual activo y asegurando la ruta raíz del proyecto:
+```bash
+$env:PYTHONPATH="."; pytest -v
+```
+7. Stack Tecnológico
 Lenguaje: Python 3.10+
 
-Control de Versiones: Git y GitHub (Conventional Commits en inglés).
+Control de Versiones: Git & GitHub (Historial estricto bajo los estándares de Conventional Commits).
 
 Entorno de Trabajo: PyCharm / Visual Studio Code con soporte para entorno virtual (.venv).
 
-6. Instrucciones de Ejecución
-Clona el repositorio y sitúate en la rama de trabajo (feature/level-2).
+Framework de Testing: PyTest.
 
-Abre la terminal integrada en la raíz del proyecto y activa el entorno virtual (.venv).
+8. Glosario Técnico del Proyecto
+Arquitectura Modular: Diseño de software basado en la división de responsabilidades en archivos independientes (catalog.py, validations.py, main.py).
 
-Ejecuta el programa principal con el comando:
+BDD (Behavior-Driven Development): Desarrollo guiado por el comportamiento mediante especificaciones legibles en lenguaje natural (Gherkin).
 
-Bash
-python main.py
-Interactúa con el menú por consola introduciendo las opciones numéricas del 1 al 8 para administrar el catálogo de vinilos.
+CLI (Command Line Interface): Interfaz basada en terminal de comandos para la interacción directa con el usuario.
+
+Concatenación: Acción de unir cadenas de texto utilizando el operador de suma (+).
+
+Excepción (ValueError): Mecanismo de control de errores que interrumpe la ejecución anómala ante datos incorrectos.
+
+Fixture: Función auxiliar de PyTest para inicializar un entorno limpio de datos antes de testear.
+
+Gherkin: Lenguaje estructurado en texto plano basado en palabras clave (Given, When, Then).
+
+Interpolación (f-strings): Inserción limpia de variables dentro de plantillas de texto usando llaves {}.
+
+PYTHONPATH: Variable de entorno empleada para indicar a Python las rutas de importación de módulos en proyectos estructurados.
+
+Raise: Instrucción utilizada para disparar una excepción de forma explícita ante un fallo de validación.
+
+Scope (Ámbito): Contexto del código donde una variable o función es visible y accesible.    
+
